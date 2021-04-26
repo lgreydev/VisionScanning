@@ -28,8 +28,6 @@ class ViewController: UIViewController {
         }
     }
     
-    var textLabel = UILabel()
-    
     
     
     // MARK: - Override Functions

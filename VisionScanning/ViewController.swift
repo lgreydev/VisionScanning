@@ -49,15 +49,28 @@ extension ViewController {
   }
 
   private func setupCameraLiveView() {
-    // TODO: Setup captureSession
+    captureSession.sessionPreset = .hd1280x720
 
-    // TODO: Add input
+    let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
 
-    // TODO: Add output
+    guard
+      let device = videoDevice,
+      let videoDeviceInput = try? AVCaptureDeviceInput(device: device),
+      captureSession.canAddInput(videoDeviceInput)
+      else {
+        showAlert(
+          withTitle: "Cannot Find Camera",
+          message: "There seems to be a problem with the camera on your device.")
+        return
+      }
 
+    captureSession.addInput(videoDeviceInput)
+    let captureOutput = AVCaptureVideoDataOutput()
+    
+    // TODO: Set video sample rate
+    captureSession.addOutput(captureOutput)
     configurePreviewLayer()
-
-    // TODO: Run session
+    captureSession.startRunning()
   }
 
     
